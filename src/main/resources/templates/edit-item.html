@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Spring Boot Template - Edit Item</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Spring Boot Template</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/items" class="active">Items</a></li>
+                    <li><a href="/h2-console" target="_blank">H2 Console</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="edit-item-section">
+        <div class="container">
+            <h2>Edit Item</h2>
+            
+            <div class="edit-item-form">
+                <form th:action="@{/items/update/{id}(id=${item.id})}" method="post" th:object="${item}">
+                    <div class="form-group">
+                        <label for="id">ID:</label>
+                        <input type="text" id="id" th:field="*{id}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" th:field="*{name}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" th:field="*{description}" required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Update Item</button>
+                        <a href="/items" class="btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Spring Boot Template. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html> 

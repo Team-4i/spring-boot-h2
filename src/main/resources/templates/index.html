@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Spring Boot Template - Home</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Spring Boot Template</h1>
+            <nav>
+                <ul>
+                    <li><a href="/" class="active">Home</a></li>
+                    <li><a href="/items">Items</a></li>
+                    <li><a href="/h2-console" target="_blank">H2 Console</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Welcome to Spring Boot Template</h2>
+            <p>A complete starter template with Spring Boot, H2 Database, JPA, Thymeleaf, and REST API.</p>
+            <a href="/items" class="btn">Manage Items</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2>Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Spring Boot</h3>
+                    <p>Fast development with Spring Boot's convention-over-configuration approach.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>H2 Database</h3>
+                    <p>In-memory database for development with browser console access.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>REST API</h3>
+                    <p>Complete RESTful API with CRUD operations for your entities.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Thymeleaf</h3>
+                    <p>Server-side Java template engine for modern web development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="items-preview">
+        <div class="container">
+            <h2>Latest Items</h2>
+            <div class="items-grid">
+                <div th:each="item : ${items}" class="item-card">
+                    <h3 th:text="${item.name}">Item Name</h3>
+                    <p th:text="${item.description}">Item Description</p>
+                </div>
+            </div>
+            <a href="/items" class="btn">View All Items</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Spring Boot Template. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html> 

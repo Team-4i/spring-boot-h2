@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Spring Boot Template - Manage Items</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Spring Boot Template</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/items" class="active">Items</a></li>
+                    <li><a href="/h2-console" target="_blank">H2 Console</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="items-section">
+        <div class="container">
+            <h2>Manage Items</h2>
+            
+            <div class="add-item-form">
+                <h3>Add New Item</h3>
+                <form th:action="@{/items/add}" method="post" th:object="${newItem}">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" th:field="*{name}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" th:field="*{description}" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Add Item</button>
+                </form>
+            </div>
+
+            <div class="items-list">
+                <h3>Current Items</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${items}">
+                                <td th:text="${item.id}">1</td>
+                                <td th:text="${item.name}">Item Name</td>
+                                <td th:text="${item.description}">Item Description</td>
+                                <td class="actions">
+                                    <a th:href="@{/items/edit/{id}(id=${item.id})}" class="btn-edit">Edit</a>
+                                    <a th:href="@{/items/delete/{id}(id=${item.id})}" class="btn-delete" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Spring Boot Template. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html> 
