@@ -2,4 +2,6 @@
 /Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/entity/Item.java
 /Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/controller/WebController.java
 /Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/DemoApplication.java
+/Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/config/DataInitializer.java
 /Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/repository/ItemRepository.java
+/Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/config/DatabaseConfig.java

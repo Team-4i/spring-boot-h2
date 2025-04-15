@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Spring Boot Template - Database Info</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Spring Boot Template</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/items">Items</a></li>
+                    <li><a href="/db-info" class="active">Database Info</a></li>
+                    <li><a href="/h2-console" target="_blank" th:if="${#strings.contains(dbInfo.activeProfiles, 'dev')}">H2 Console</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="db-info-section">
+        <div class="container">
+            <h2>Database Information</h2>
+            
+            <div class="info-card">
+                <h3>Active Configuration</h3>
+                <div class="info-item">
+                    <strong>Active Profiles:</strong>
+                    <span th:text="${dbInfo.activeProfiles}">Unknown</span>
+                </div>
+                <div class="info-item">
+                    <strong>Database Selector:</strong>
+                    <span th:if="${dbInfo.useMysql == 'true'}" class="badge prod">MySQL Mode (-Dsql=true)</span>
+                    <span th:if="${dbInfo.useMysql == 'false'}" class="badge dev">H2 Mode (default)</span>
+                </div>
+                <div class="info-item">
+                    <strong>Database Type:</strong>
+                    <span th:if="${#strings.contains(dbInfo.activeProfiles, 'dev')}" class="badge dev">H2 In-Memory</span>
+                    <span th:if="${#strings.contains(dbInfo.activeProfiles, 'prod')}" class="badge prod">MySQL</span>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <h3>Database Details</h3>
+                <div class="info-item">
+                    <strong>Database Name:</strong>
+                    <span th:text="${dbInfo.databaseProduct}">Unknown</span>
+                </div>
+                <div class="info-item">
+                    <strong>Connection URL:</strong>
+                    <span th:text="${dbInfo.databaseUrl}">Unknown</span>
+                </div>
+                <div class="info-item">
+                    <strong>Database Platform:</strong>
+                    <span th:text="${dbInfo.databasePlatform}">Unknown</span>
+                </div>
+            </div>
+            
+            <div class="info-card" th:if="${#strings.contains(dbInfo.activeProfiles, 'dev')}">
+                <h3>H2 Console Access</h3>
+                <p>The H2 Console is available for development profile only.</p>
+                <div class="info-item">
+                    <strong>URL:</strong>
+                    <span>http://localhost:8080/h2-console</span>
+                </div>
+                <div class="info-item">
+                    <strong>JDBC URL:</strong>
+                    <span>jdbc:h2:mem:devdb</span>
+                </div>
+                <div class="info-item">
+                    <strong>Username:</strong>
+                    <span>sa</span>
+                </div>
+                <div class="info-item">
+                    <strong>Password:</strong>
+                    <span>password</span>
+                </div>
+                <a href="/h2-console" target="_blank" class="btn">Open H2 Console</a>
+            </div>
+            
+            <div class="info-card" th:if="${#strings.contains(dbInfo.activeProfiles, 'prod')}">
+                <h3>MySQL Configuration</h3>
+                <p>The application is currently using MySQL database in production mode.</p>
+                <p>To initialize the database with sample data, set <code>app.init-db=true</code> in <code>application-prod.properties</code>.</p>
+            </div>
+            
+            <div class="buttons-container">
+                <a href="/" class="btn">Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Spring Boot Template. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html> 
