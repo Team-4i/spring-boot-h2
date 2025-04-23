@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SQL Query Tool - Database Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container { margin-top: 30px; }
+        .query-box { height: 150px; }
+        .results { margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">SQL Query Tool</h1>
+        
+        <div class="card">
+            <div class="card-header">Execute SQL Query</div>
+            <div class="card-body">
+                <form method="get" action="/admin/query">
+                    <div class="mb-3">
+                        <label for="sqlQuery" class="form-label">SQL Query (SELECT only)</label>
+                        <textarea id="sqlQuery" name="sql" class="form-control query-box" 
+                                  placeholder="SELECT * FROM item" th:text="${sql}"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Execute Query</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="results" th:if="${error != null}">
+            <div class="alert alert-danger" th:text="${error}">Error message</div>
+        </div>
+        
+        <div class="results" th:if="${success == true}">
+            <h3>Query Results</h3>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr th:if="${not #lists.isEmpty(queryResult)}">
+                            <th th:each="entry, stat : ${queryResult[0]}" th:text="'Column_' + ${stat.index}">Column</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="row : ${queryResult}">
+                            <td th:each="cell : ${row}" th:text="${cell}">Data</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div th:if="${#lists.isEmpty(queryResult)}" class="alert alert-warning">
+                    Query returned no results.
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <a href="/admin" class="btn btn-secondary">Back to Admin Panel</a>
+            <a href="/" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
