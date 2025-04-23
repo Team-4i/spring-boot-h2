@@ -1,7 +1,7 @@
-/Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/controller/ItemController.java
-/Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/entity/Item.java
-/Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/controller/WebController.java
-/Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/DemoApplication.java
-/Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/config/DataInitializer.java
-/Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/repository/ItemRepository.java
-/Users/nishantmaurya/spring-boot/src/main/java/com/example/demo/config/DatabaseConfig.java
+C:\spring-boot-h2\src\main\java\com\example\demo\repository\ItemRepository.java
+C:\spring-boot-h2\src\main\java\com\example\demo\controller\ItemController.java
+C:\spring-boot-h2\src\main\java\com\example\demo\controller\WebController.java
+C:\spring-boot-h2\src\main\java\com\example\demo\config\DatabaseConfig.java
+C:\spring-boot-h2\src\main\java\com\example\demo\config\DataInitializer.java
+C:\spring-boot-h2\src\main\java\com\example\demo\entity\Item.java
+C:\spring-boot-h2\src\main\java\com\example\demo\DemoApplication.java

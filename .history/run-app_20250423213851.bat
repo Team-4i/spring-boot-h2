@@ -1,15 +1,7 @@
 @echo off
-setlocal enabledelayedexpansion
+REM Simple script to run the Spring Boot application with different database options
 
-REM Get the first argument
-set "arg=%~1"
-
-REM If no argument or argument is h2, run with H2
-if "%arg%"=="" goto run_h2
-if /i "%arg%"=="h2" goto run_h2
-if /i "%arg%"=="mysql" goto run_mysql
-if /i "%arg%"=="help" goto show_help
-
+REM Function to display help message
 :show_help
 echo Usage: run-app.bat [option]
 echo Options:
@@ -23,12 +15,21 @@ echo   run-app.bat h2       # Runs with H2 database
 echo   run-app.bat mysql    # Runs with MySQL database
 exit /b
 
-:run_h2
+REM Process command line arguments
+if "%~1"=="" goto h2
+if /i "%~1"=="h2" goto h2
+if /i "%~1"=="mysql" goto mysql
+if /i "%~1"=="help" goto show_help
+
+echo Unknown option: %~1
+goto show_help
+
+:h2
 echo Starting application with H2 database...
 call mvn spring-boot:run -Dspring-boot.run.profiles=dev
 exit /b
 
-:run_mysql
+:mysql
 echo Checking MySQL connection...
 
 REM Extract current MySQL password from properties file
@@ -39,7 +40,7 @@ echo Attempting to connect to MySQL...
 mysql -u root -p%current_password% -e "SELECT 1;" > nul 2>&1
 if %ERRORLEVEL% EQU 0 (
     echo MySQL connection successful!
-    goto start_mysql
+    goto start_app
 ) else (
     echo MySQL connection failed!
     set /p new_password="Enter new MySQL password: "
@@ -54,7 +55,7 @@ if %ERRORLEVEL% EQU 0 (
     goto check_connection
 )
 
-:start_mysql
+:start_app
 echo Starting application with MySQL database...
 call mvn spring-boot:run -Dspring-boot.run.profiles=prod
 exit /b 
