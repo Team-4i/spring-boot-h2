@@ -49,31 +49,6 @@ check_mysql() {
   fi
 }
 
-# Function to check MySQL connection and handle password
-check_mysql_connection() {
-  # Extract current password from properties file
-  local current_password=$(grep "spring.datasource.password" src/main/resources/application-prod.properties | cut -d'=' -f2)
-  
-  while true; do
-    echo "Attempting to connect to MySQL..."
-    if mysql -u root -p"$current_password" -e "SELECT 1;" &>/dev/null; then
-      echo "MySQL connection successful!"
-      return 0
-    else
-      echo "MySQL connection failed!"
-      read -p "Enter new MySQL password: " new_password
-      if [ -z "$new_password" ]; then
-        echo "Password cannot be empty. Please try again."
-        continue
-      fi
-      
-      # Update password in properties file
-      sed -i "s/spring.datasource.password=.*/spring.datasource.password=$new_password/" src/main/resources/application-prod.properties
-      current_password=$new_password
-    fi
-  done
-}
-
 # Function to display help message
 show_help() {
   echo "Usage: ./run-app.sh [option]"
@@ -96,7 +71,6 @@ case "$1" in
     ;;
   mysql)
     check_mysql
-    check_mysql_connection
     echo "Starting application with MySQL database..."
     mvn spring-boot:run -Dspring-boot.run.profiles=prod
     ;;
