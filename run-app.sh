@@ -68,7 +68,13 @@ check_mysql_connection() {
       fi
       
       # Update password in properties file
-      sed -i "s/spring.datasource.password=.*/spring.datasource.password=$new_password/" src/main/resources/application-prod.properties
+      if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS requires an extension argument for sed -i
+        sed -i '' "s/spring.datasource.password=.*/spring.datasource.password=$new_password/" src/main/resources/application-prod.properties
+      else
+        # Linux and other systems
+        sed -i "s/spring.datasource.password=.*/spring.datasource.password=$new_password/" src/main/resources/application-prod.properties
+      fi
       current_password=$new_password
     fi
   done
